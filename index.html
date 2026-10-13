@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ahmed Shokr Store | الباقات</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar"><button id="menuToggle" class="icon-btn" aria-label="القائمة">☰</button><a class="brand" href="index.html">Ahmed <span>Shokr</span></a><div class="top-actions"><button id="themeToggle" class="icon-btn" aria-label="تغيير المظهر">◐</button><a class="small-link" href="login.html">تسجيل الدخول</a></div></header>
+<div class="layout">
+<aside id="sidebar" class="sidebar">
+  <div class="side-brand">القائمة الرئيسية</div>
+  <a href="#home" class="nav-link active">الرئيسية</a><a href="#vodafone" class="nav-link">باقات فودافون</a><a href="#we" class="nav-link">باقات WE</a><a href="#order" class="nav-link">اطلب باقة</a><a href="#orders" class="nav-link">طلباتي</a>
+  <a href="login.html" class="nav-link">تسجيل الدخول / حساب جديد</a>
+  <div class="side-note">للدعم فقط <a href="https://wa.me/201070424120" target="_blank" rel="noopener">واتساب الدعم</a></div>
+</aside>
+<main class="main">
+<section id="home" class="hero"><p class="eyebrow">AHMED SHOKR STORE</p><h1>باقتك… بسهولة وأمان</h1><p>اختار الباقة، ادفع، ثم أرسل بيانات الدفع لمراجعتها. تفعيل الباقة يتم بعد تأكيد الدفع.</p><a class="btn" href="#vodafone">تصفح الباقات</a></section>
+<section id="vodafone" class="section"><div class="section-heading"><div><p class="eyebrow">VODAFONE</p><h2>باقات فودافون فليكس</h2></div></div><div id="vodafoneGrid" class="bundle-grid"></div></section>
+<section id="we" class="section"><div class="section-heading"><div><p class="eyebrow">WE</p><h2>باقات الإنترنت الأرضي/المحمول</h2></div></div><div id="weGrid" class="bundle-grid"></div></section>
+<section id="order" class="section order-section"><p class="eyebrow">NEW ORDER</p><h2>طلب باقة</h2><p class="muted">يمكنك الطلب كزائر دون إنشاء حساب. احتفظ برقم الطلب لمتابعته.</p>
+<form id="orderForm" class="form-card">
+<label>الباقة المختارة<select id="bundleId" required><option value="">اختر الباقة</option></select></label>
+<label>الاسم<input id="customerName" required minlength="2" maxlength="80" autocomplete="name" placeholder="اسمك"/></label>
+<label>رقم الموبايل المطلوب تفعيل الباقة عليه<input id="phone" required inputmode="tel" minlength="8" maxlength="15" placeholder="01xxxxxxxxx"/></label>
+<label>طريقة الدفع<select id="paymentMethod" required><option value="instapay">InstaPay</option><option value="vodafone_cash">Vodafone Cash</option></select></label>
+<div class="payment-box"><div><strong>InstaPay</strong><p>ahmed.shokr1@instapay</p><a href="https://ipn.eg/S/ahmed.shokr1/instapay/6puImD" target="_blank" rel="noopener">فتح رابط الدفع</a></div><div><strong>Vodafone Cash</strong><p dir="ltr">01012639004</p></div></div>
+<label>مرجع الدفع أو آخر 4 أرقام (إن وجد)<input id="paymentReference" maxlength="100" placeholder="اكتب مرجع العملية"/></label>
+<label>ملاحظات (اختياري)<textarea id="note" rows="3" maxlength="300" placeholder="أي تفاصيل إضافية"></textarea></label>
+<label class="check"><input id="terms" type="checkbox" required> أؤكد أن بيانات الطلب صحيحة، وأن الطلب يظل قيد المراجعة حتى تأكيد الدفع.</label>
+<button id="submitOrder" class="btn full" type="submit">إرسال الطلب</button><p id="orderMessage" class="message" role="status"></p>
+</form></section>
+<section id="orders" class="section"><p class="eyebrow">ORDER TRACKING</p><h2>طلباتي</h2><p class="muted">طلبات الزائر مرتبطة بالمتصفح الحالي. إذا مسحت بيانات المتصفح أو استخدمت جهازًا آخر، قد لا تتمكن من استعادتها. أنشئ حسابًا لتتبع الطلبات المرتبطة بحسابك.</p><div id="myOrders" class="orders-list"><p class="muted">سيظهر سجل الطلبات بعد تفعيل الدخول المجهول أو تسجيل الدخول.</p></div></section>
+<footer>© <span id="year"></span> Ahmed Shokr Store · <a href="https://wa.me/201070424120" target="_blank" rel="noopener">الدعم الفني</a></footer>
+</main></div>
+<script type="module" src="script.js"></script>
+</body></html>

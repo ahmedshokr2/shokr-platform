@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.uid == 'BTxztpHJrPYPikfFEmOonyEvy1Z2'; }
+    function expectedPrice(id) {
+      return id == 'flex10400' ? 250 :
+        id == 'flex6500' ? 140 :
+        id == 'flex2600' ? 80 :
+        id == 'flex1300' ? 50 :
+        id == 'internet' ? 320 :
+        id == 'we20' ? 280 :
+        id == 'we30' ? 340 :
+        id == 'we40' ? 440 :
+        id == 'we50' ? 520 :
+        id == 'we60' ? 580 :
+        id == 'we70' ? 660 : -1;
+    }
+    match /orders/{orderId} {
+      allow create: if signedIn()
+        && request.resource.data.keys().hasAll(['ownerUid','customerEmail','name','phone','bundleId','bundleName','price','note','paymentMethod','paymentReference','paymentStatus','status','createdAt'])
+        && request.resource.data.keys().hasOnly(['ownerUid','customerEmail','name','phone','bundleId','bundleName','price','note','paymentMethod','paymentReference','paymentStatus','status','createdAt'])
+        && request.resource.data.ownerUid == request.auth.uid
+        && ((request.auth.token.email == null && request.resource.data.customerEmail == null) || request.resource.data.customerEmail == request.auth.token.email)
+        && request.resource.data.name is string && request.resource.data.name.size() >= 2 && request.resource.data.name.size() <= 80
+        && request.resource.data.phone is string && request.resource.data.phone.size() >= 8 && request.resource.data.phone.size() <= 15
+        && request.resource.data.bundleId is string && request.resource.data.price == expectedPrice(request.resource.data.bundleId)
+        && request.resource.data.bundleName is string && request.resource.data.bundleName.size() <= 100
+        && request.resource.data.note is string && request.resource.data.note.size() <= 300
+        && request.resource.data.paymentMethod in ['instapay','vodafone_cash']
+        && request.resource.data.paymentReference is string && request.resource.data.paymentReference.size() <= 100
+        && request.resource.data.paymentStatus == 'بانتظار المراجعة'
+        && request.resource.data.status == 'بانتظار المراجعة'
+        && request.resource.data.createdAt == request.time;
+      allow read: if signedIn() && (resource.data.ownerUid == request.auth.uid || isAdmin());
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','paymentStatus'])
+        && request.resource.data.status in ['تم التأكيد','مرفوض','بانتظار المراجعة']
+        && request.resource.data.paymentStatus in ['تم التأكيد','مرفوض','بانتظار المراجعة'];
+      allow delete: if isAdmin();
+    }
+  }
+}
